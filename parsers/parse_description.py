@@ -3,18 +3,17 @@ import sklearn as sk
 import math 
 import nltk
 from collections import Counter
-from nltk.corpus import stopwords
 import os.path
 from gensim import corpora
 from gensim.models import LsiModel
 from nltk.tokenize import RegexpTokenizer
-from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from gensim.models.coherencemodel import CoherenceModel
 import matplotlib.pyplot as plt
+import requests
 
-nltk.download('stopwords')
-stop_words = set(stopwords.words('english'))
+stopwords_list = requests.get("https://gist.githubusercontent.com/rg089/35e00abf8941d72d419224cfd5b5925d/raw/12d899b70156fd0041fa9778d657330b024b959c/stopwords.txt").content
+stop_words = set(stopwords_list.decode().splitlines()) 
 
 def split_text(text:str) -> list:
     return text.split(" ")
@@ -69,7 +68,7 @@ def prepare_corpus(doc_clean):
     # generate LDA model
     return dictionary,doc_term_matrix
 
-def create_gensim_lsa_model(doc_clean,number_of_topics,words):
+def create_gensim_lsa_model(doc_clean,number_of_topics):
     """
     Input  : clean document, number of topics and number of words associated with each topic
     Purpose: create LSA model using gensim
@@ -78,7 +77,6 @@ def create_gensim_lsa_model(doc_clean,number_of_topics,words):
     dictionary,doc_term_matrix=prepare_corpus(doc_clean)
     # generate LSA model
     lsamodel = LsiModel(doc_term_matrix, num_topics=number_of_topics, id2word = dictionary)  # train model
-    print(lsamodel.print_topics(num_topics=number_of_topics, num_words=words))
     return lsamodel
 
 def compute_coherence_values(dictionary, doc_term_matrix, doc_clean, stop, start=2, step=3):
@@ -100,6 +98,5 @@ def compute_coherence_values(dictionary, doc_term_matrix, doc_clean, stop, start
         coherencemodel = CoherenceModel(model=model, texts=doc_clean, dictionary=dictionary, coherence='c_v')
         coherence_values.append(coherencemodel.get_coherence())
     return model_list, coherence_values
-
 
 
