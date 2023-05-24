@@ -3,7 +3,6 @@ import sklearn as sk
 import math 
 import nltk
 from collections import Counter
-nltk.download('stopwords')
 from nltk.corpus import stopwords
 import os.path
 from gensim import corpora
@@ -14,6 +13,7 @@ from nltk.stem.porter import PorterStemmer
 from gensim.models.coherencemodel import CoherenceModel
 import matplotlib.pyplot as plt
 
+nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
 
 def split_text(text:str) -> list:
