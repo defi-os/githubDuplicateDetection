@@ -2,7 +2,7 @@ import requests
 import configparser
 
 config = configparser.ConfigParser()
-config.read("../config.ini")
+config.read("../../config.ini")
 
 github_token = config["github"]["token"]
 github_api_version = config["github"]["api_version"]

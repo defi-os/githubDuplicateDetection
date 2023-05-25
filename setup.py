@@ -1,5 +1,10 @@
-# some_file.py
-import sys
+from setuptools import setup, find_packages
 
-# caution: path[0] is reserved for script path (or '' in REPL)
-sys.path.insert(1, "/")
+setup(
+    name='detective_agent',
+    version='0.0.1',#still in starting phase of dev
+    description='An internal AI tool to detect duplicate pull requests',
+    author='Tanmay Mujal',
+    author_email='tanmaymunjal64@gmail.com',
+    packages=find_packages()
+)
