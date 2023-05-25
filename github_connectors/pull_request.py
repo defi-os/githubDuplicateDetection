@@ -1,13 +1,20 @@
 import requests
 from issue import get_issue
-from code_diffs import get_code_diffs
+from code_diffs import get_changed_files,get_code_diffs
+import configparser
+
+config = configparser.ConfigParser()
+config.read('../config.ini')
+
+github_token = config["github"]["token"]
+github_api_version = config["github"]["api_version"]
 
 def get_pull_request_data(owner: str, repo: str, pull_request_number:int) -> dict:
     pull_request_url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pull_request_number}"
     headers = {
         'Accept': 'application/vnd.github+json',
-        'Authorization': 'Bearer <YOUR-TOKEN>',
-        'X-GitHub-Api-Version': '2022-11-28'
+        'Authorization': f"Bearer {github_token}",
+        'X-GitHub-Api-Version': github_api_version
     }
     return requests.get(pull_request_url,headers=headers).json()
 
@@ -26,10 +33,12 @@ def get_data_from_pr(owner: str, repo: str, pull_request_number: int) -> dict:
     title = get_title(data)
     description = get_description(data)
     issue = get_issue(data)
-    code_diffs = get_code_diffs(pull_request_number)
+    changed_files = get_changed_files(owner,repo,pull_request_number)
+    code_diff = get_code_diffs(data)
     return {
         "title":title,
         "description": description,
         "issue": issue,
-        "code_diffs": code_diffs
+        "changed_files": changed_files,
+        "code_diffs":code_diff
     }
