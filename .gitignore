@@ -161,3 +161,6 @@ cython_debug/
 
 #ignore config.ini files
 *.ini
+
+#ignore dataset file
+model/Dataset/MSR2018-DupPR
