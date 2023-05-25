@@ -48,3 +48,18 @@ def get_data_from_pr(owner: str, repo: str, pull_request_number: int) -> dict:
         "changed_files": changed_files,
         "code_diffs": code_diff,
     }
+
+
+def get_recent_merged_pull_requests(repo: str) -> list:
+    pull_requests_url = f"https://api.github.com/repos/{repo}/pulls"
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {github_token}",
+        "X-GitHub-Api-Version": github_api_version,
+    }
+    params = {"state": "closed", "sort": "updated", "direction": "desc"}
+    pull_requests = requests.get(
+        pull_requests_url, headers=headers, params=params
+    ).json()
+    merged_pull_requests = [pr["url"] for pr in pull_requests if pr["merged"] is True]
+    return merged_pull_requests
