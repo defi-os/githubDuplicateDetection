@@ -163,4 +163,4 @@ cython_debug/
 *.ini
 
 #ignore dataset file
-model/Dataset/MSR2018-DupPR
+detective_agent/model/Dataset/MSR2018-DupPR

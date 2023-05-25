@@ -1,6 +1,6 @@
 from gensim.models import LsiModel
 from gensim.models.coherencemodel import CoherenceModel
-from utils import prepare_corpus
+from detective_agent.parsers.utils import prepare_corpus
 
 
 def create_gensim_lsa_model(doc_clean, number_of_topics):
