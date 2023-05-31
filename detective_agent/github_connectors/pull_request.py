@@ -51,9 +51,9 @@ def get_recent_merged_pull_requests(repo: str) -> list:
         "Authorization": f"Bearer {github_token}",
         "X-GitHub-Api-Version": github_api_version,
     }
-    params = {"state": "open", "sort": "updated", "direction": "desc"}
+    params = {"state": "closed", "sort": "updated", "direction": "desc"}
     pull_requests = requests.get(
         pull_requests_url, headers=headers, params=params
     ).json()
-    merged_pull_requests = [pr["url"] for pr in pull_requests if "merged_at" in pr and type(pr["merged_at"])==str]
+    merged_pull_requests = [pr["url"] for pr in pull_requests if "merged_at" in pr.keys() and type(pr["merged_at"]) is str]
     return merged_pull_requests
