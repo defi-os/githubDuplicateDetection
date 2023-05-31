@@ -2,6 +2,7 @@ import requests
 import os
 from detective_agent.config import github_token, github_api_version
 
+
 def get_code_diffs_data(owner: str, repo: str, pull_request_number: int) -> dict:
     code_diffs_url = (
         f"https://api.github.com/repos/{owner}/{repo}/pulls/{pull_request_number}/files"

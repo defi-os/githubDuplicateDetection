@@ -167,3 +167,6 @@ detective_agent/model/Dataset/MSR2018-DupPR
 
 #ignore .py config files
 config.py
+
+#add scrapped md file to gitignore
+*.md
