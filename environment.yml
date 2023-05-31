@@ -13,7 +13,6 @@ dependencies:
   - cffi=1.15.1=py37h5eee18b_3
   - charset-normalizer=2.0.4=pyhd3eb1b0_0
   - click=8.0.4=py37h06a4308_0
-  - configparser=5.0.2=pyhd3eb1b0_0
   - cryptography=39.0.1=py37h9ce1e76_0
   - cython=0.29.28=py37h295c915_0
   - fftw=3.3.9=h27cfd23_1

@@ -1,13 +1,10 @@
 import requests
 from detective_agent.github_connectors.issue import get_issue
-from detective_agent.github_connectors.code_diffs import get_changed_files, get_code_diffs
-import configparser
-
-config = configparser.ConfigParser()
-config.read("../../config.ini")
-
-github_token = config["github"]["token"]
-github_api_version = config["github"]["api_version"]
+from detective_agent.github_connectors.code_diffs import (
+    get_changed_files,
+    get_code_diffs,
+)
+from detective_agent.config import github_token, github_api_version
 
 
 def get_pull_request_data(owner: str, repo: str, pull_request_number: int) -> dict:
@@ -61,5 +58,9 @@ def get_recent_merged_pull_requests(repo: str) -> list:
     pull_requests = requests.get(
         pull_requests_url, headers=headers, params=params
     ).json()
-    merged_pull_requests = [pr["url"] for pr in pull_requests if pr["merged"] is True]
+    merged_pull_requests = [
+        pr["url"]
+        for pr in pull_requests
+        if "merged_at" in pr.keys() and type(pr["merged_at"]) is str
+    ]
     return merged_pull_requests

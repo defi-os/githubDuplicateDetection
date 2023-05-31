@@ -17,7 +17,9 @@ def select_unique_pairs(lst: list, number_pairs: int, max_iterations: int) -> li
 def write_to_md(repo: str, pull_requests_list: list):
     f = open("scraped_data.md", "a")
     for pull_requests in pull_requests_list:
-        pull_request_nos = [pr.split("pull/")[1] for pr in pull_requests]
+        pull_request_nos = [pull_requests[0].split("pulls/")[1]], pull_requests[
+            1
+        ].split("pulls/")[1]
         append_data = "| {} | [{}]({}), [{}]({}) |\n".format(
             repo,
             pull_request_nos[0],
