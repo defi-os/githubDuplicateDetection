@@ -166,7 +166,7 @@ cython_debug/
 detective_agent/model/Dataset/MSR2018-DupPR
 
 #ignore .py config files
-config.py
+detective_agent/config.py
 
 #add scrapped md file to gitignore
-*.md
+detective_agent/model/Dataset/scrap_data/scraped_data.md
