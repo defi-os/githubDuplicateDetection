@@ -1,13 +1,7 @@
 import requests
 from detective_agent.github_connectors.issue import get_issue
 from detective_agent.github_connectors.code_diffs import get_changed_files, get_code_diffs
-import configparser
-
-config = configparser.ConfigParser()
-config.read("../../config.ini")
-
-github_token = config["github"]["token"]
-github_api_version = config["github"]["api_version"]
+from detective_agent.config import github_token, github_api_version
 
 
 def get_pull_request_data(owner: str, repo: str, pull_request_number: int) -> dict:

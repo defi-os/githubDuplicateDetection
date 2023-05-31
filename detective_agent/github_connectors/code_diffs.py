@@ -1,12 +1,6 @@
 import requests
-import configparser
-
-config = configparser.ConfigParser()
-config.read("../../config.ini")
-
-github_token = config["github"]["token"]
-github_api_version = config["github"]["api_version"]
-
+import os
+from detective_agent.config import github_token, github_api_version
 
 def get_code_diffs_data(owner: str, repo: str, pull_request_number: int) -> dict:
     code_diffs_url = (
