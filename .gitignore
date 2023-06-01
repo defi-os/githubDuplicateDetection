@@ -169,4 +169,4 @@ detective_agent/model/Dataset/MSR2018-DupPR
 detective_agent/config.py
 
 #add scrapped md file to gitignore
-detective_agent/model/Dataset/scrap_data/scraped_data.md
+detective_agent/model/Dataset/scrap_data/scraped_data.csv

@@ -8,5 +8,5 @@ major_repos = [
     "metabase/metabase",
     "amazon-sagemaker-examples",
     "NomicFoundation/hardhat",
-    "safe-global/safe-wallet-web"
+    "safe-global/safe-wallet-web",
 ]

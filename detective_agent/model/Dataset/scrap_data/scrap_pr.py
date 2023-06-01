@@ -4,7 +4,7 @@ from detective_agent.github_connectors.pull_request import (
 )
 from detective_agent.model.Dataset.scrap_data.utils import (
     select_unique_pairs,
-    write_to_md,
+    write_to_csv,
 )
 
 for repo in major_repos:
@@ -14,4 +14,4 @@ for repo in major_repos:
         len(recent_pull_requests) // 4,
         len(recent_pull_requests) * 4,
     )
-    write_to_md(repo, unique_pull_request_pairs)
+    write_to_csv(repo, unique_pull_request_pairs)

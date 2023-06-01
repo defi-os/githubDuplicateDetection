@@ -7,6 +7,7 @@ from detective_agent.github_connectors.code_diffs import (
 from detective_agent.config import github_token, github_api_version
 import time
 
+
 def get_pull_request_data(owner: str, repo: str, pull_request_number: int) -> dict:
     pull_request_url = (
         f"https://api.github.com/repos/{owner}/{repo}/pulls/{pull_request_number}"
@@ -56,14 +57,21 @@ def get_recent_merged_pull_requests(repo: str) -> list:
     }
     merged_pull_requests = []
     for page in range(5):
-        params = {"state": "closed", "sort": "updated", "direction": "desc","page":page}
+        params = {
+            "state": "closed",
+            "sort": "updated",
+            "direction": "desc",
+            "page": page,
+        }
         pull_requests = requests.get(
             pull_requests_url, headers=headers, params=params
-            ).json()
+        ).json()
         time.sleep(1)
-        merged_pull_requests.extend([
-            pr["url"]
-            for pr in pull_requests
-            if "merged_at" in pr.keys() and type(pr["merged_at"]) is str
-        ])
+        merged_pull_requests.extend(
+            [
+                pr["url"]
+                for pr in pull_requests
+                if "merged_at" in pr.keys() and type(pr["merged_at"]) is str
+            ]
+        )
     return merged_pull_requests
