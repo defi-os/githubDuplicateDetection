@@ -16,8 +16,7 @@ def select_unique_pairs(lst: list, number_pairs: int, max_iterations: int) -> li
     return list(pairs)
 
 
-def write_to_csv(repo: str, pull_requests_list: list):
-    filename = "scraped_data.csv"
+def write_to_csv(repo: str, pull_requests_list: list, copied: str, filename: str):
     f = open(filename, "a")
     file_exists = os.path.isfile(filename) and os.stat(filename).st_size != 0
     headers = ["Repo", "PullRequest1", "PullRequest2", "copied"]
@@ -31,7 +30,7 @@ def write_to_csv(repo: str, pull_requests_list: list):
                 "Repo": repo,
                 "PullRequest1": pull_requests[0].split("pulls/")[1],
                 "PullRequest2": pull_requests[1].split("pulls/")[1],
-                "copied": "False",
+                "copied": copied,
             }
         )
     writer.writerows(data)
