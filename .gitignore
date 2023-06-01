@@ -163,10 +163,10 @@ cython_debug/
 *.ini
 
 #ignore dataset file
-detective_agent/model/Dataset/MSR2018-DupPR
+detective_agent/model/Dataset/reformat_md/MSR2018-DupPR
 
 #ignore .py config files
 detective_agent/config.py
 
 #add scrapped md file to gitignore
-detective_agent/model/Dataset/scrap_data/scraped_data.md
+detective_agent/model/Dataset/scrap_data/scraped_data.csv
