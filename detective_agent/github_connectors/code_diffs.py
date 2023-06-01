@@ -1,5 +1,4 @@
 import requests
-import os
 from detective_agent.config import github_token, github_api_version
 
 

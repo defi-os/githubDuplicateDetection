@@ -11,11 +11,14 @@ def read_markdown_data(filename):
 
 def parse_markdown_and_push_csv(markdown_data):
     # Extract rows from Markdown data using regular expressions
-    rows = re.findall(r"\| ([^\|]+) \| \[([^]]+)\]", markdown_data)
-    for row in rows:
-        repo = row[0].strip()
-        pull_requests = row[1].split(", ")
-        pr1 = pull_requests[0]
-        pr2 = pull_requests[1] if len(pull_requests) > 1 else ""
-        unique_pull_requests_pair = (pr1, pr2)
+    for row in markdown_data.split("\n"):
+        row = row.split("|", maxsplit=2)
+        repo = row[1].strip()
+        pr1 = row[2].split("(", maxsplit=1)[1].split(")", maxsplit=1)[0].strip()
+        pr2 = row[2].rsplit("(", maxsplit=1)[1].split(")", maxsplit=1)[0].strip()
+        unique_pull_requests_pair = [(pr1, pr2)]
+        print(unique_pull_requests_pair)
         write_to_csv(repo, unique_pull_requests_pair, "True", reformatted_md_write_path)
+
+
+parse_markdown_and_push_csv(read_markdown_data(md_path))

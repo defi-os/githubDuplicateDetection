@@ -24,12 +24,14 @@ def write_to_csv(repo: str, pull_requests_list: list, copied: str, filename: str
     if not file_exists:
         writer.writeheader()
     data = []
+    split_by = "pull/" if "pull/" in pull_requests_list[0][0] else "pulls/"
+    print(split_by)
     for pull_requests in pull_requests_list:
         data.append(
             {
                 "Repo": repo,
-                "PullRequest1": pull_requests[0].split("pulls/")[1],
-                "PullRequest2": pull_requests[1].split("pulls/")[1],
+                "PullRequest1": pull_requests[0].split(split_by)[1],
+                "PullRequest2": pull_requests[1].split(split_by)[1],
                 "copied": copied,
             }
         )
