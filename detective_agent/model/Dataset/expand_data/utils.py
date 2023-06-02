@@ -10,3 +10,10 @@ def write_to_csv(headers: list, data: list, filename: str):
         writer.writeheader()
     writer.writerows(data)
     f.close()
+
+
+def find_max_index(lst):
+    if len(lst) == 0:
+        return None  # Return None if the list is empty
+    max_index = lst.index(max(lst))
+    return max_index

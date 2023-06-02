@@ -1,6 +1,10 @@
 from detective_agent.config import reformatted_csv_write_path
 from detective_agent.github_connectors.pull_request import get_data_from_pr
-from detective_agent.model.Dataset.expand_data.utils import write_to_csv
+from detective_agent.model.Dataset.expand_data.utils import write_to_csv, find_max_index
+from detective_agent.parsers.parse_description import (
+    compute_coherence_values,
+    get_similarity,
+)
 import csv
 
 
@@ -16,6 +20,22 @@ def reformat_data(filename):
             )
             pr_data_2 = get_data_from_pr(
                 split_repo[0], split_repo[1], row["PullRequest2"]
+            )
+            # gets similarity between tokens
+            models, values = compute_coherence_values(pr_data_1["title"])
+            if models == [] or values == []:
+                break
+            choosen_model = models[find_max_index(values)]
+            title_similarity = get_similarity(
+                choosen_model, pr_data_1["title"], pr_data_2["title"]
+            )
+            # gets similarity between description
+            models, values = compute_coherence_values(pr_data_1["description"])
+            if models == [] or values == []:
+                break
+            choosen_model = models[find_max_index(values)]
+            description_similarity = get_similarity(
+                choosen_model, pr_data_1["description"], pr_data_2["description"]
             )
             changed_files_1 = set(
                 [
@@ -35,10 +55,8 @@ def reformat_data(filename):
                     "owner": split_repo[1],
                     "PullRequest1": row["PullRequest1"],
                     "PullRequest2": row["PullRequest2"],
-                    "PR1Title": pr_data_1["title"],
-                    "PR2Title": pr_data_2["title"],
-                    "PR1Desc": pr_data_1["description"],
-                    "PR2Desc": pr_data_2["description"],
+                    "PR_Title_Similarity": title_similarity,
+                    "PR_Desc_Similarity": description_similarity,
                     "PR1codediff": pr_data_1["code_diffs"],
                     "PR2codediff": pr_data_2["code_diffs"],
                     "changed_files": changed_files_1.symmetric_difference(
