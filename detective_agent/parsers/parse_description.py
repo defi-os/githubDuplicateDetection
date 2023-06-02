@@ -17,7 +17,7 @@ def create_gensim_lsa_model(dictionary, doc_term_matrix, number_of_topics):
     return lsamodel, dictionary
 
 
-def compute_coherence_values(docs, stop=3, start=1, step=1):
+def build_optimized_lsi_model(docs, stop=3, start=1, step=1):
     """
     Input   : dictionary : Gensim dictionary
               corpus : Gensim corpus

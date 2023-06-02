@@ -2,7 +2,7 @@ from detective_agent.config import reformatted_csv_write_path
 from detective_agent.github_connectors.pull_request import get_data_from_pr
 from detective_agent.model.Dataset.expand_data.utils import write_to_csv, find_max_index
 from detective_agent.parsers.parse_description import (
-    compute_coherence_values,
+    build_optimized_lsi_model,
     get_similarity,
 )
 import csv
@@ -22,7 +22,7 @@ def reformat_data(filename):
                 split_repo[0], split_repo[1], row["PullRequest2"]
             )
             # gets similarity between tokens
-            models, values = compute_coherence_values(pr_data_1["title"])
+            models, values = build_optimized_lsi_model(pr_data_1["title"])
             if models == [] or values == []:
                 break
             choosen_model = models[find_max_index(values)]
@@ -30,7 +30,7 @@ def reformat_data(filename):
                 choosen_model, pr_data_1["title"], pr_data_2["title"]
             )
             # gets similarity between description
-            models, values = compute_coherence_values(pr_data_1["description"])
+            models, values = build_optimized_lsi_model(pr_data_1["description"])
             if models == [] or values == []:
                 break
             choosen_model = models[find_max_index(values)]
