@@ -31,5 +31,9 @@ def get_changed_files(repo: str, owner: str, pull_request_number: int) -> list:
 
 def get_code_diffs(pull_request_data: dict) -> str:
     if "diff_url" in pull_request_data.keys():
-        return requests.get(pull_request_data["diff_url"]).content.decode("ascii")
+        code_diff = requests.get(pull_request_data["diff_url"]).content
+        try:
+            return code_diff.decode("ascii")
+        except:
+            return code_diff.decode("utf-8", errors="replace")
     return ""
