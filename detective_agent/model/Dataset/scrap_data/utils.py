@@ -25,7 +25,6 @@ def write_to_csv(repo: str, pull_requests_list: list, copied: str, filename: str
         writer.writeheader()
     data = []
     split_by = "pull/" if "pull/" in pull_requests_list[0][0] else "pulls/"
-    print(split_by)
     for pull_requests in pull_requests_list:
         data.append(
             {

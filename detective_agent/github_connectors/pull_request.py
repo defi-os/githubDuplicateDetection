@@ -27,8 +27,8 @@ def get_title(pull_request_data: dict) -> str:
 
 
 def get_description(pull_request_data: dict) -> str:
-    if "description" in pull_request_data.keys():
-        return pull_request_data["description"]
+    if "body" in pull_request_data.keys():
+        return pull_request_data["body"]
     return ""
 
 
